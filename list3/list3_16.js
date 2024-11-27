@@ -4,13 +4,12 @@ const fs = require('fs');
 const ejs = require('ejs');
 const url = require('url');
 const qs = require('querystring');
-const { title } = require('process');
 
-const index_page = fs.readFileSync('./list3_13 .ejs','utf8');
+const index_page = fs.readFileSync('./list3_15.ejs','utf8');
 const other_page = fs.readFileSync('./list3_12.ejs','utf8');
 
 var data = {
-   msg:'no message...'
+    msg: 'no message...'
 };
 var data2 = {
     'Taro': ['taro@yamada','09-999-999','Tokyo'],
@@ -31,7 +30,7 @@ function getFromClient(request , response){
         case '/':
             response_index(request,response);
             break;
-        case '/list3_12.ejs':
+        case '/other':
             response_other(request,response);
             break;
 
@@ -45,32 +44,54 @@ function getFromClient(request , response){
 }
 
 function response_index(request , response){
+    
     if(request.method == 'POST'){
-        var body ='';
+        var body = '';
 
-        request.on('data',(data)=> {
+        request.on('data', (data) =>{
             body += data;
         });
 
-        request.on('end',() =>{
-            data = qs.parse(body);
-            write_index(request,response);
+        request.on('end',()=>{
+            data= qs.parse(body);
+            setCookie('msg', data.msg, response);
+            write_index(request, response);
         });
     }else{
-        write_index(request,response);
+        write_index(request , response);
     }
-}
-
-function write_index(request,response){
+    }
+    
+function write_index(request , response){
     var msg = "※伝言を表示します。"
+    var cookie_data = getCookie('msg' , request);
     var content = ejs.render(index_page,{
         title: "Index",
         content: msg,
         data: data,
+        cookie_data: cookie_data,
     });
-    response.writeHead(200, { 'Content-Type': 'text/html'});
+    response.writeHead(200,{'Content-Type': 'text/html'});
     response.write(content);
     response.end();
+}
+
+function setCookie(key, value, response){
+    var cookie = escape(value);
+    response.setHeader('Set-Cookie', [key + '=' + cookie]);
+}
+
+function getCookie(key, request){
+    var cookie_data = request.headers.cookie != undefined?
+    request.headers.cookie : '';
+    var data = cookie_data.split(';');
+    for (var i in data){
+        if(data[i].trim().startsWith(key+ '=')){
+            var result = data[i].trim().substring(key.length + 1);
+            return unescape(result);
+        }
+    }
+    return '';
 }
 
 
