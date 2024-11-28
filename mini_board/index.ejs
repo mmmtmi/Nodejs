@@ -38,7 +38,7 @@
 
             <table class="table">
                 <% for(var i in data){%>
-                <- include('data_item',{val:data[i]}) %>
+                <%- include('data_item',{val:data[i]}) %>
                 <% } %>
             </table>
         </div>

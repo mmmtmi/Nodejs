@@ -1,0 +1,7 @@
+{"id":"test2","msg":"これはクッキー？？"}
+{"id":"test2","msg":"これはクッキー？？"}
+{"id":"test2","msg":"test2"}
+{"id":"right1903","msg":"dekita"}
+{"id":"right1903","msg":"ちょっとバグ"}
+{"id":"right1903","msg":"あああ"}
+{"id":"right1903","msg":"やとできた"}
