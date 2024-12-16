@@ -60,18 +60,18 @@ router.get('/show', (req, res, next) => {
 });
 
 router.get('/edit', (req, res, next) => {
-    const id = req.query.id;
+    const id =req.query.id;
     db.serialize(() => {
-        const q = "selsct * from mydata where id = ?";
+        const q = "select * from mydata where id = ?";
         db.get(q, [id], (err, row) => {
-            if (!err) {
+            if (!err){
                 var data = {
-                    title: 'hello/edit',
-                    content: 'id = ' + id + 'のレコードを編集：',
+                    title: 'Hello/edit',
+                    content: 'id =' + id + 'のレコード：',
                     mydata: row
                 }
+                res.render('hello/edit', data);
             }
-            res.render('hello/edit', data);
         });
     });
 });
@@ -85,6 +85,6 @@ router.post('/edit', (req, res, next ) => {
     db.serialize(() => {
         db.run(q, nm, ml, ag, id );
     });
-    res.render('/hello');
+    res.redirect('/hello');
 })
 module.exports = router;
