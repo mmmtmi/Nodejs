@@ -10,7 +10,11 @@ router.get('/', (req , res ,next) => {
         db.each("select* from mydata ",(err, row) =>{
             if(!err){
                 rows += "<tr><th>" + row.id + "</th><td>"
-                + row.name + "</td></tr>";
+                + row.name + "</td><td>" +
+                "<a href=\"/hello/show?id="+ row.id + "\" class=\"btn btn-primary\">詳細</a>"+
+                "</td><td>"+
+                "<a href=\"/hello/edit?id="+ row.id + "\" class=\"btn btn-primary\">編集</a>"+
+                "</td></tr>";
             }
             },(err, count) => {
                 if (!err){
