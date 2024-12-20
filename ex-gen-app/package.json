@@ -12,8 +12,13 @@
     "express": "~4.18.2",
     "express-session": "^1.18.1",
     "http-errors": "~2.0.0",
+    "missing": "^0.0.1",
     "morgan": "~1.10.0",
     "sqlite3": "^5.1.7",
     "xml2js": "^0.6.2"
-  }
+  },
+  "main": "app.js",
+  "author": "",
+  "license": "ISC",
+  "description": ""
 }
