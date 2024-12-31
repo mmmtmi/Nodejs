@@ -38,6 +38,9 @@ router.get('/add',(req, res, next) => {
     }
     res.render('hello/add', data);
 });
+
+const { check, validationResult} = require('express-validator')
+
 router.post('/add', [
     check ('name' , 'NAME は必ず入力してください').notEmpty(),
     check ('mail' , 'MAIL はメールアドレスを入力してください').isEmail(),
